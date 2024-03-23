@@ -158,6 +158,12 @@ def pretrain(train_valid_test_dataset_provider,
         if "compression_training" in args.deepspeed_config_dict:
             args.compression_training = True
 
+    # Initialize W&B for each node.
+    is_local_rank_0 = (torch.distributed.get_rank() % get_accelerator().device_count() == 0)
+    if wandb is not None and args.use_wandb and is_local_rank_0:
+        import socket
+        wandb.init(entity=args.wandb_entity, project=args.wandb_project, group=args.wandb_group, name=socket.gethostname())
+
     # Model, optimizer, and learning rate.
     timers('model-and-optimizer-setup', log_level=0).start(barrier=True)
     model, optimizer, opt_param_scheduler = setup_model_and_optimizer(
