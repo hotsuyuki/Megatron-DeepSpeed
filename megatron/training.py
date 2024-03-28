@@ -1092,7 +1092,7 @@ def training_log(loss_dict, total_loss_dict, learning_rate, iteration,
                 ),
                 'training/iteration_time_vs_samples': (
                     (elapsed_time_per_iteration
-                        / args.consumed_train_samples),
+                        / args.consumed_train_samples)
                 ),
                 'training/consumed_samples': args.consumed_train_samples,
                 'training/consumed_tokens': args.consumed_train_tokens,
