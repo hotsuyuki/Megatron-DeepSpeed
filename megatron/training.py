@@ -1106,7 +1106,7 @@ def training_log(loss_dict, total_loss_dict, learning_rate, iteration,
                     log_string += ' {}: {:.6E} |'.format(key, avg)
                 total_loss_dict[key] = get_accelerator().FloatTensor([0.0])
         if wandb is not None and getattr(wandb, 'run', None) is not None:
-            wandb.log(wandb_metrics)
+            wandb.log(wandb_metrics, step=iteration)
         if loss_scale is not None:
             log_string += ' loss scale: {:.1f} |'.format(loss_scale)
         if grad_norm is not None:
