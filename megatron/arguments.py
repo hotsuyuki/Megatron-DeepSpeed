@@ -747,6 +747,8 @@ def _add_logging_args(parser):
                        help='W&B project name.')
     group.add_argument('--wandb-group', '--wandb_group', type=str, default=None,
                        help='W&B group name.')
+    group.add_argument('--wandb-tag', '--wandb_tag', type=str, default=None,
+                       help='W&B tag name.')
 
     return parser
 

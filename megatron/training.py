@@ -162,7 +162,9 @@ def pretrain(train_valid_test_dataset_provider,
     is_local_rank_0 = (torch.distributed.get_rank() % get_accelerator().device_count() == 0) if torch.distributed.is_initialized() else True
     if wandb is not None and args.use_wandb and is_local_rank_0:
         import socket
-        wandb.init(entity=args.wandb_entity, project=args.wandb_project, group=args.wandb_group, name=socket.gethostname())
+        wandb.init(entity=args.wandb_entity, project=args.wandb_project,
+                   group=args.wandb_group, name=socket.gethostname(),
+                   tags=[args.wandb_tag] if args.wandb_tag else None)
 
     # Model, optimizer, and learning rate.
     timers('model-and-optimizer-setup', log_level=0).start(barrier=True)
